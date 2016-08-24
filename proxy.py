@@ -511,7 +511,6 @@ class TCP(object):
     def __init__(self, hostname='127.0.0.1', port=8899, backlog=100):
         self.hostname = hostname
         self.port = port
-        #HOSTNAME = hostname
         self.backlog = backlog
     
     def handle(self, client):
