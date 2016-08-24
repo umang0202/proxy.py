@@ -290,6 +290,7 @@ class Server(Connection):
     
     def connect(self):
         self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.conn.bind((hostname, 0))
         self.conn.connect((self.addr[0], self.addr[1]))
 
 class Client(Connection):
@@ -510,6 +511,7 @@ class TCP(object):
     def __init__(self, hostname='127.0.0.1', port=8899, backlog=100):
         self.hostname = hostname
         self.port = port
+        #HOSTNAME = hostname
         self.backlog = backlog
     
     def handle(self, client):
@@ -557,9 +559,10 @@ def main():
     args = parser.parse_args()
     
     logging.basicConfig(level=getattr(logging, args.log_level), format='%(asctime)s - %(levelname)s - pid:%(process)d - %(message)s')
-    
+    global hostname  
     hostname = args.hostname
     port = int(args.port)
+
     
     try:
         proxy = HTTP(hostname, port)
